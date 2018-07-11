@@ -6,7 +6,7 @@ import pandas as pd
 def text_len(x):
     """ Extract string length """
     try:
-	    return len(str(x))
+        return len(str(x))
     except:
         return 0
 
@@ -14,9 +14,9 @@ def text_len(x):
 def count_word(x, sep=None):
     """ Extract number of words in a string """
     try:
-	    return len(str(x).split(sep))
+        return len(str(x).split(sep))
     except:
-	    return 0
+        return 0
 
 
 def count_unique_word(x, sep=None):
