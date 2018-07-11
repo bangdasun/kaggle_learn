@@ -1,4 +1,5 @@
 
+
 import numpy as np
 import pandas as pd
 
@@ -92,5 +93,6 @@ def add_group_entropy(df, group, subgroup, cname, value):
 
 
 def add_group_cumcount(df, cols, cname):
+	""" Extract sequential id in a group """
     df[cname] = df.groupby(cols).cumcount() + 1
     return df

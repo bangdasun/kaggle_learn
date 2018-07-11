@@ -1,2 +1,3 @@
-# kaggle_learn
-Functions used in kaggle competitions: data preprocessing/feature engineering/model training etc
+## kaggle_learn
+
+This module is a collection for useful code in kaggle, includes general utility functions, feature engineering functions, model training / cross-validation / model stacking helper functions.
