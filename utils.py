@@ -2,6 +2,7 @@
 import os
 import psutil
 import time
+import logging
 import numpy as np
 import pandas as pd
 from contextlib import contextmanager
@@ -60,3 +61,29 @@ def reduce_memory_usage(df):
     print('Memory usage after optimization is: {:.2f} MB'.format(end_mem))
     print('Decreased by {:.2f}%'.format(100 * (start_mem - end_mem) / start_mem))
     return df
+	
+
+def get_logger(logger_name):
+    """Get a logger to log information during code running
+	
+	Parameters
+	----------
+	logger_name: str, title of log file 
+	
+	Returns
+	-------
+	logger     : logger object
+	
+	Examples
+	--------
+	>>> logger_main = get_logger('main')
+	>>> logger_main.info('Start . . .')
+	"""
+	logger = logging.getLogger(logger_name)
+	logger.setLevel(logging.INFO)
+	file_handler = logging.FileHandler('{}.log'.format(logger_name))
+    file_handler.setLevel(logging.INFO)
+    formatter = logging.Formatter('[%(levelname)s]%(asctime)s:%(name)s:%(message)s')
+    file_handler.setFormatter(formatter)
+    logger.addHandler(file_handler)
+    return logger

@@ -33,3 +33,10 @@ def count_symbol(x, symbol=None):
         return str(x).count(symbol)
     except:
         return 0
+		
+def count_capital_letters(x):
+    """ Extract number of captial letters in a string"""
+	try:
+	    return sum([s.isupper() for s in list(x)])
+	except:
+	    return 0
