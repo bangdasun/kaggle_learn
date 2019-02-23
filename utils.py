@@ -64,24 +64,24 @@ def reduce_memory_usage(df):
 	
 
 def get_logger(logger_name):
-    """Get a logger to log information during code running
+    """Get logger to log information during code running
 	
-	Parameters
-	----------
-	logger_name: str, title of log file 
+    Parameters
+    ----------
+    logger_name: str, title of log file 
 	
-	Returns
-	-------
-	logger     : logger object
-	
-	Examples
-	--------
-	>>> logger_main = get_logger('main')
-	>>> logger_main.info('Start . . .')
+    Returns
+    -------
+    logger     : logger object
+    
+    Examples
+    --------
+    >>> logger_main = get_logger('main')
+    >>> logger_main.info('Start . . .')
 	"""
-	logger = logging.getLogger(logger_name)
-	logger.setLevel(logging.INFO)
-	file_handler = logging.FileHandler('{}.log'.format(logger_name))
+    logger = logging.getLogger(logger_name)
+    logger.setLevel(logging.INFO)
+    file_handler = logging.FileHandler('{}.log'.format(logger_name))
     file_handler.setLevel(logging.INFO)
     formatter = logging.Formatter('[%(levelname)s]%(asctime)s:%(name)s:%(message)s')
     file_handler.setFormatter(formatter)
