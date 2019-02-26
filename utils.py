@@ -78,7 +78,7 @@ def get_logger(logger_name):
     --------
     >>> logger_main = get_logger('main')
     >>> logger_main.info('Start . . .')
-	"""
+    """
     logger = logging.getLogger(logger_name)
     logger.setLevel(logging.INFO)
     file_handler = logging.FileHandler('{}.log'.format(logger_name))
