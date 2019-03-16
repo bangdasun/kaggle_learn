@@ -42,6 +42,17 @@ def count_capital_letters(x):
     except:
         return 0
 
+def count_common_words(x, y):
+    """ Extract number of common word between two strings """
+    try:
+        words, cnt = x.split(), 0
+        for w in words:
+            if y.find(w) >= 0:
+                cnt += 1
+        return cnt
+    except:
+        return 0
+
 def search_symbol(x, symbol=None):
     """ Search symbol and return first match place """
     result = re.search(symbol, str(x))
