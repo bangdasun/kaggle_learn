@@ -34,13 +34,15 @@ def count_symbol(x, symbol=None):
         return str(x).count(symbol)
     except:
         return 0
-		
+
+
 def count_capital_letters(x):
     """ Extract number of captial letters in a string """
     try:
         return sum([s.isupper() for s in list(str(x))])
     except:
         return 0
+
 
 def count_common_words(x, y):
     """ Extract number of common word between two strings """
@@ -53,6 +55,7 @@ def count_common_words(x, y):
     except:
         return 0
 
+
 def search_symbol(x, symbol=None):
     """ Search symbol and return first match place """
     result = re.search(symbol, str(x))
@@ -60,3 +63,11 @@ def search_symbol(x, symbol=None):
         return result.start()
     except:
         return -1
+
+
+def extract_capital_letters(x):
+    """ Extract capital letters from string """
+    try:
+        return ''.join([s for s in x if s.isupper()])
+    except:
+        return ''
