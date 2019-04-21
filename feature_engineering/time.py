@@ -40,7 +40,7 @@ def extract_datetime_components(df, cols, drop_raw=False, unix_time=False):
         df[col] = convert_datetime(df, col, unix_time)
         df[col + '_year']   = df[col].dt.year.astype(np.int16)
         df[col + '_month']  = df[col].dt.month.astype(np.int8)
-        df[col + '_day']    = df[col].dt.month.astype(np.int8)
+        df[col + '_day']    = df[col].dt.day.astype(np.int8)
         df[col + '_hour']   = df[col].dt.hour.astype(np.int8)
         df[col + '_minute'] = df[col].dt.minute.astype(np.int8)
         df[col + '_second'] = df[col].dt.second.astype(np.int8)
