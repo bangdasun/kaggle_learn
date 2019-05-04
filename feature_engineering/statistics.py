@@ -27,7 +27,7 @@ def add_group_stats(df, cols, value, method, new_cols_out=False):
     if isinstance(cols, str):
         cols = [cols]
 
-    new_cols = ['_'.join([c, value, m]) if m != 'count' else '_'.join([c, m]) for c in cols for m in method]
+    new_cols = ['_'.join([*cols, value, m]) if m != 'count' else '_'.join([*cols, m]) for m in method]
 
     df_feats = pd.DataFrame(df.groupby(cols)[value].agg(method)).reset_index()
     df_feats.columns = cols + new_cols
