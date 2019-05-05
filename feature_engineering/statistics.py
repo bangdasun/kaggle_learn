@@ -17,6 +17,9 @@ def add_group_stats(df, cols, value, method, new_cols_out=False):
 
     :return             : df pd.DataFrame, input dataframe with features added
     """
+    if not isinstance(value, str):
+        raise NotImplementedError('Only support value to be string format (column name)')
+
     if isinstance(method, str):
         method = [method]
 
