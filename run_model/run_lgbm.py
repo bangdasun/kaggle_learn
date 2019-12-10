@@ -6,6 +6,7 @@ import numpy as np
 import pandas as pd
 import lightgbm as lgb
 
+
 def run_lgbm(X_train, y_train, X_valid, y_valid, X_test,
              features, features_categorical, train_params, **kwargs):
     """
@@ -28,20 +29,9 @@ def run_lgbm(X_train, y_train, X_valid, y_valid, X_test,
                                 - feature importance (gain and split) dataframe
     """
 
-    if 'num_boost_round' in kwargs:
-        num_boost_round = kwargs['num_boost_round']
-    else:
-        num_boost_round = 1000
-
-    if 'early_stopping_rounds' in kwargs:
-        early_stopping_rounds = kwargs['early_stopping_rounds']
-    else:
-        early_stopping_rounds = 200
-
-    if 'verbose_eval' in kwargs:
-        verbose_eval = kwargs['verbose_eval']
-    else:
-        verbose_eval = 100
+    num_boost_round = kwargs.get('num_boost_round', 1000)
+    early_stopping_rounds = kwargs.get('early_stopping_rounds', 200)
+    verbose_eval = kwargs.get('verbose_eval', 100)
 
     X_train_lgb = lgb.Dataset(X_train, y_train, feature_name=features, categorical_feature=features_categorical)
     X_valid_lgb = lgb.Dataset(X_valid, y_valid, feature_name=features, categorical_feature=features_categorical)
