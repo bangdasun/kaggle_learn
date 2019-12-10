@@ -23,11 +23,7 @@ def lgbm_permutation_importance(X_train, y_train, features, features_categorical
         np.random.seed(seed)
         y_train = np.random.permutation(y_train)
 
-    if 'num_boost_round' in kwargs:
-        num_boost_round = kwargs['num_boost_round']
-    else:
-        num_boost_round = 1000
-
+    num_boost_round = kwargs.get('num_boost_round', 1000)
     X_train_lgb = lgb.Dataset(X_train, y_train, free_raw_data=False, silent=True)
     lgbm_model = lgb.train(params=train_params, train_set=X_train_lgb,
                            feature_name=features, categorical_feature=features_categorical,
@@ -39,10 +35,11 @@ def lgbm_permutation_importance(X_train, y_train, features, features_categorical
     return importance_df
 
 
-def get_null_feature_importance(X_train, y_train, features, features_categorical, train_params,
-                                shuffle=True, seed=None, num_runs=80, method='lgb',  **kwargs):
+def null_feature_importance(X_train, y_train, features, features_categorical, train_params,
+                            shuffle=True, seed=None, num_runs=80, method='lgb',  **kwargs):
     """
     Get feature null importance based on lightgbm
+    Ideally it should support other ensemble model types
 
     :param X_train              : np.array, training data
     :param y_train              : np.array, training label

@@ -2,9 +2,10 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-def plot_feature_importance(importance_df, figsize=(12, 30)):
+
+def plot_feature_importance_df(importance_df, figsize=(12, 30)):
     """
-    Plot feature importance
+    Plot feature importance using horizontal bar plot
 
     :param importance_df: pd.DataFrame, contains 2 columns: features, importance
     :param figsize      : tuple, figure size
