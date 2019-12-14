@@ -5,6 +5,7 @@ import warnings
 import numpy as np
 import pandas as pd
 import lightgbm as lgb
+import xgboost as xgb
 
 
 def run_lgbm(X_train, y_train, X_valid, y_valid, X_test,
@@ -51,3 +52,40 @@ def run_lgbm(X_train, y_train, X_valid, y_valid, X_test,
     importance_df['importance_split'] = lgb_model.feature_importance(importance_type='split')
 
     return lgb_model, y_valid_preds, y_test_preds, importance_df
+
+
+def run_xgb(X_train, y_train, X_valid, y_valid, X_test, features, train_params, **kwargs):
+    """
+
+    Run xgboost model
+    See more at https://xgboost.readthedocs.io/en/latest/python/python_api.html
+
+    :param X_train              : np.array or scipy sparse matrix, training data
+    :param y_train              : np.array, training label
+    :param X_val                : np.array or scipy sparse matrix, validation data
+    :param y_val                : np.array, validation label
+    :param X_test               : np.array or scipy sparse matrix, test data
+    :param train_params         : dict, lightgbm training parameters
+    :param features             : list (str), features
+    :param kwargs               : other parameters needed for running lightgbm
+    :return:
+    """
+
+    num_boost_round = kwargs.get('num_boost_round', 1000)
+    early_stopping_rounds = kwargs.get('early_stopping_rounds', 200)
+    verbose_eval = kwargs.get('verbose_eval', 100)
+
+    X_train_xgb = xgb.DMatrix(X_train, label=y_train, feature_names=features)
+    X_valid_xgb = xgb.DMatrix(X_valid, label=y_valid, feature_names=features)
+    X_test = xgb.DMatrix(X_test, feature_names=features)
+
+    xgb_model = xgb.train(train_params, dtrain=X_train_xgb,
+                          evals=[(X_train_xgb, 'train'), (X_valid_xgb, 'eval')],
+                          num_boost_round=num_boost_round,
+                          early_stopping_rounds=early_stopping_rounds,
+                          verbose_eval=verbose_eval)
+
+    y_valid_preds = xgb_model.predict(X_valid_xgb)
+    y_test_preds = xgb_model.predict(X_test)
+
+    return xgb_model, y_valid_preds, y_test_preds
