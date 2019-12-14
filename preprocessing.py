@@ -4,8 +4,46 @@ import numpy as np
 import pandas as pd
 
 from typing import Union, List
+from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.preprocessing import OrdinalEncoder
 from sklearn.exceptions import NotFittedError
+
+
+class ValueEncoder(BaseEstimator, TransformerMixin):
+    """ Replace old values with new values
+
+    This is estimator is able to replace old values by specified values
+    Currently only works on pandas.DataFrame
+
+    """
+    def __init__(self, old_to_new: dict):
+        """
+        Init use mapping from missing value to filling value
+
+        :param old_to_new: format - {feature: [dtype, {old_value: new_value}]}
+        """
+        self.old_to_new = old_to_new
+
+    def fit(self, df: pd.DataFrame, y: None):
+        return self
+
+    def transform(self, df: pd.DataFrame) -> pd.DataFrame:
+        df_processed = df.copy()
+        for col, info in self.old_to_new.items():
+            dtype, old_to_new = info[0], info[1]
+            for old_val, new_val in old_to_new.items():
+                if np.isnan(old_val):
+                    logging.warning('Old value `np.nan` cannot be found using `==`'
+                                    ' `use pd.DataFrame.fillna()` impute first.')
+                df_processed.loc[df_processed[col] == old_val, col] = new_val
+                if dtype == 'numerical':
+                    df_processed[col] = df_processed[col].astype(np.float)
+                elif dtype == 'categorical':
+                    df_processed[col] = df_processed[col].astype(str)
+                else:
+                    logging.warning('dtype {} not defined'.format(dtype))
+
+        return df_processed
 
 
 class CategoricalLabelEncoder(OrdinalEncoder):
