@@ -46,6 +46,6 @@ def extract_datetime_components(df, cols, drop_raw=False, unix_time=False):
         df[col + '_second'] = df[col].dt.second.astype(np.int8)
 
     if drop_raw:
-        df.drop(labels=col, axis=1, inplace=True)
+        df.drop(labels=cols, axis=1, inplace=True)
 
     return df
