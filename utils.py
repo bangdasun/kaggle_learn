@@ -3,8 +3,11 @@ import os
 import psutil
 import time
 import logging
+import random
 import numpy as np
 import pandas as pd
+import torch
+
 from contextlib import contextmanager
 
 
@@ -89,3 +92,13 @@ def get_logger(logger_name):
     file_handler.setFormatter(formatter)
     logger.addHandler(file_handler)
     return logger
+
+
+def set_torch_seed(seed=2019):
+    """ Set random seed when using pytorch """
+    random.seed(seed)
+    os.environ['PYTHONHASHSEED'] = str(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
+    torch.backends.cudnn.deterministic = True
