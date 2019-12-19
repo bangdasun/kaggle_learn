@@ -54,7 +54,7 @@ def run_classifier_kfold_cv(X_train, y_train, X_test=None, classifier='rf', clas
         clf = _builtin_classifier[classifier](**classifier_params)
         clf.fit(X_train_, y_train_)
         oof_preds[val_idx] = clf.predict(X_val_)
-        oof_preds_proba[val_idx] = clf.predict_proba(X_val_)
+        oof_preds_proba[val_idx] = clf.predict_proba(X_val_)[:, 1]
         clf_list.append(clf)
 
     # save out-of-fold predictions
@@ -65,7 +65,7 @@ def run_classifier_kfold_cv(X_train, y_train, X_test=None, classifier='rf', clas
     if X_test is not None:
         test_preds_proba = np.zeros(X_test.shape[0])
         for clf_ in clf_list:
-            test_preds_proba += clf_.predict_proba(X_test) / folds
+            test_preds_proba += clf_.predict_proba(X_test)[:, 1] / folds
         output['test_preds_proba'] = test_preds_proba
 
     return output
