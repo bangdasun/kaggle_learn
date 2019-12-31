@@ -34,6 +34,9 @@ def run_lgbm(X_train, y_train, X_valid, y_valid, X_test,
     early_stopping_rounds = kwargs.get('early_stopping_rounds', 200)
     verbose_eval = kwargs.get('verbose_eval', 100)
 
+    if train_params is None:
+        train_params = {}
+
     X_train_lgb = lgb.Dataset(X_train, y_train, feature_name=features, categorical_feature=features_categorical)
     X_valid_lgb = lgb.Dataset(X_valid, y_valid, feature_name=features, categorical_feature=features_categorical)
 
@@ -74,6 +77,9 @@ def run_xgb(X_train, y_train, X_valid, y_valid, X_test, features, train_params, 
     num_boost_round = kwargs.get('num_boost_round', 1000)
     early_stopping_rounds = kwargs.get('early_stopping_rounds', 200)
     verbose_eval = kwargs.get('verbose_eval', 100)
+
+    if train_params is None:
+        train_params = {}
 
     X_train_xgb = xgb.DMatrix(X_train, label=y_train, feature_names=features)
     X_valid_xgb = xgb.DMatrix(X_valid, label=y_valid, feature_names=features)
