@@ -9,7 +9,7 @@ import pandas as pd
 import torch
 
 from contextlib import contextmanager
-
+from collections import OrderedDict
 
 @contextmanager
 def timer(name):
@@ -102,3 +102,12 @@ def set_torch_seed(seed=2019):
     torch.manual_seed(seed)
     torch.cuda.manual_seed(seed)
     torch.backends.cudnn.deterministic = True
+
+
+def sort_dict_values(dictionary, ascending=False):
+    """ Sort dictionary items by its values """
+    if ascending:
+        output = OrderedDict(sorted(dictionary.items(), reverse=False, key=lambda x: x[1]))
+    else:
+        output = OrderedDict(sorted(dictionary.items(), reverse=True, key=lambda x: x[1]))
+    return output
