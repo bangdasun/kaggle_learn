@@ -7,7 +7,6 @@ from typing import Union, List
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.preprocessing import OrdinalEncoder
 from sklearn.exceptions import NotFittedError
-from keras.preprocessing import text, sequence
 
 
 class ValueEncoder(BaseEstimator, TransformerMixin):
@@ -131,66 +130,3 @@ class CategoricalLabelEncoder(OrdinalEncoder):
                 df_processed.loc[new_categories_mask_col, feat] = categories[0]
                 new_categories_mask.loc[new_categories_mask_col, feat] = True
         return new_categories_mask, df_processed
-
-
-def process_text_to_sequence(X_train, X_test, **kwargs):
-    """
-
-    Process text data (array) to equal length sequences use keras
-
-    :param X_train : np.array with shape (m, )
-    :param X_test  : np.array with shape (n, )
-    :param kwargs  : other parameters needed
-    :return:
-    """
-
-    max_features = kwargs.get('max_features', 10000)
-    max_len = kwargs.get('max_len', 50)
-
-    tokenizer = text.Tokenizer(num_words=max_features, lower=True, split=' ',
-                               filters='!"#$%&()*+,-./:;<=>?@[\\]^_`{|}~\t\n',
-                               char_level=False, oov_token=None, document_count=0)
-    tokenizer.fit_on_texts(list(X_train) + list(X_test))
-
-    # process text to sequence
-    X_train_sequence = tokenizer.texts_to_sequences(X_train)
-    X_test_sequence = tokenizer.texts_to_sequences(X_test)
-
-    # truncate / padding
-    X_train_sequence_pad = sequence.pad_sequences(X_train_sequence, maxlen=max_len)
-    X_test_sequence_pad = sequence.pad_sequences(X_test_sequence, maxlen=max_len)
-
-    return X_train_sequence, X_test_sequence, X_train_sequence_pad, X_test_sequence_pad, tokenizer
-
-
-def load_pretrained_word_embeddings(embedding_path, tokenizer, **kwargs):
-    """
-
-    Load pretrained word embeddings
-
-    :param embedding_path : str, example: './embeddings/glove.840B.300d/glove.840B.300d.txt'
-    :param tokenizer      : keras tokenizer, return from process_text_to_sequence
-    :param kwargs         : other parameters needed
-    :return:
-    """
-
-    embedding_size = kwargs.get('embedding_size', 300)
-    max_features = kwargs.get('max_features', 10000)
-
-    def _get_coefs(word, *arr):
-        return word, np.asarray(arr, dtype='float32')
-
-    embeddings_index = dict(_get_coefs(*o.strip().rsplit(' ')) for o in open(embedding_path))
-    word_index = tokenizer.word_index
-    num_words = min(max_features, len(word_index))
-    embeddings_matrix = np.zeros((num_words, embedding_size))
-    for word, i in word_index.items():
-        if i >= max_features:
-            continue
-        embeddings_vector = embeddings_index.get(word)
-        # oov or not
-        if embeddings_vector is not None:
-            embeddings_matrix[i] = embeddings_vector
-
-    return embeddings_matrix
-
