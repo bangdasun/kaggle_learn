@@ -4,7 +4,7 @@ import string
 import warnings
 import numpy as np
 
-from ..utils import convert_to_numpy_1d_array
+from kaggle_learn.utils import convert_to_numpy_1d_array
 from sklearn.base import BaseEstimator, TransformerMixin
 from nltk.corpus import stopwords
 from nltk.stem.snowball import PorterStemmer, SnowballStemmer
