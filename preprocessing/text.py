@@ -29,7 +29,7 @@ def process_text_to_sequence(X_train, X_test, **kwargs):
 
     tokenizer = text.Tokenizer(num_words=max_features, lower=True, split=' ',
                                filters='!"#$%&()*+,-./:;<=>?@[\\]^_`{|}~\t\n',
-                               char_level=False, oov_token=None, document_count=0)
+                               char_level=False, oov_token=None)
     tokenizer.fit_on_texts(list(X_train) + list(X_test))
 
     # process text to sequence
@@ -40,7 +40,11 @@ def process_text_to_sequence(X_train, X_test, **kwargs):
     X_train_sequence_pad = sequence.pad_sequences(X_train_sequence, maxlen=max_len)
     X_test_sequence_pad = sequence.pad_sequences(X_test_sequence, maxlen=max_len)
 
-    return X_train_sequence, X_test_sequence, X_train_sequence_pad, X_test_sequence_pad, tokenizer
+    return dict(X_train_sequence=X_train_sequence,
+                X_test_sequence=X_test_sequence,
+                X_train_sequence_pad=X_train_sequence_pad,
+                X_test_sequence_pad=X_test_sequence_pad,
+                tokenizer=tokenizer)
 
 
 def load_pretrained_word_embeddings(embedding_path, tokenizer, **kwargs):
@@ -72,7 +76,8 @@ def load_pretrained_word_embeddings(embedding_path, tokenizer, **kwargs):
         if embeddings_vector is not None:
             embeddings_matrix[i] = embeddings_vector
 
-    return embeddings_matrix
+    return dict(embeddings_matrix=embeddings_matrix,
+                word_index=word_index)
 
 
 def clean_regex(x, pattern_mapping):
