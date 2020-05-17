@@ -111,3 +111,19 @@ def sort_dict_values(dictionary, ascending=False):
     else:
         output = OrderedDict(sorted(dictionary.items(), reverse=True, key=lambda x: x[1]))
     return output
+
+
+def convert_to_numpy_1d_array(x):
+    if isinstance(x, str):
+        output = np.array([x])
+    elif isinstance(x, list):
+        output = np.array(x)
+    elif isinstance(x, np.ndarray):
+        output = x.reshape(-1)
+    elif isinstance(x, pd.Series):
+        output = x.values
+    elif isinstance(x, pd.DataFrame):
+        output = x.values.reshape(-1)
+    else:
+        raise ValueError('type {} not supported by convert_to_numpy_1d_array()'.format(type(x)))
+    return output
