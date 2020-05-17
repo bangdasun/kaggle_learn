@@ -21,7 +21,7 @@ class NGramsSimilarityTransformer(TransformerMixin):
         elif self.method == 'dice':
             score = 2 * len(text_set_1.intersection(text_set_2)) / (len(text_set_1) + len(text_set_2))
         else:
-            raise NotImplementedError('Not support method {self.methpd}.')
+            raise NotImplementedError(f'Not support method {self.method}.')
         return score
 
     def fit(self, df: pd.DataFrame, y=None):
