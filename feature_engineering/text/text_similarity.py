@@ -1,4 +1,10 @@
-# https://github.com/h2oai/driverlessai-recipes/blob/master/transformers/nlp/text_similarity_transformers.py
+"""
+Transformers to extract text similarity features
+
+References:
+    https://github.com/h2oai/driverlessai-recipes/blob/master/transformers/nlp/text_similarity_transformers.py
+
+"""
 import nltk
 import editdistance
 import numpy as np
@@ -8,9 +14,10 @@ from sklearn.base import TransformerMixin
 
 class NGramsSimilarityTransformer(TransformerMixin):
     """ Text similarity based on n-gram """
+
     def __init__(self, ngrams=1, method='ngrams'):
         self.ngrams = ngrams
-        self.method = method.lower()
+        self.method = method
 
     def _score(self, text_set_1, text_set_2):
         score = -1
@@ -21,17 +28,20 @@ class NGramsSimilarityTransformer(TransformerMixin):
         elif self.method == 'dice':
             score = 2 * len(text_set_1.intersection(text_set_2)) / (len(text_set_1) + len(text_set_2))
         else:
-            raise NotImplementedError(f'Not support method {self.method}.')
+            raise NotImplementedError(f'Not support method {self.methpd}.')
         return score
 
-    def fit(self, df: pd.DataFrame, y=None):
+    def fit(self, X, y=None):
         return self
 
-    def transform(self, df: pd.DataFrame):
+    def transform(self, X):
         output = []
-        text_arr_1 = df.iloc[:, 0].values
-        text_arr_2 = df.iloc[:, 1].values
-        for idx in range(df.shape[0]):
+        if isinstance(X, pd.DataFrame):
+            X = X.values
+
+        text_arr_1 = X[:, 0]
+        text_arr_2 = X[:, 1]
+        for idx in range(X.shape[0]):
             try:
                 text_set_1 = set(nltk.ngrams(str(text_arr_1[idx]).lower().split(), self.ngrams))
                 text_set_2 = set(nltk.ngrams(str(text_arr_2[idx]).lower().split(), self.ngrams))
@@ -43,17 +53,21 @@ class NGramsSimilarityTransformer(TransformerMixin):
 
 class TermEditDistanceTransformer(TransformerMixin):
     """ Text similarity based on word edit distance """
+
     def __init__(self):
         pass
 
-    def fit(self, df: pd.DataFrame, y=None):
+    def fit(self, X, y=None):
         return self
 
-    def transform(self, df: pd.DataFrame):
+    def transform(self, X):
         output = []
-        text_arr_1 = df.iloc[:, 0].values
-        text_arr_2 = df.iloc[:, 1].values
-        for idx in range(df.shape[0]):
+        if isinstance(X, pd.DataFrame):
+            X = X.values
+
+        text_arr_1 = X[:, 0]
+        text_arr_2 = X[:, 1]
+        for idx in range(X.shape[0]):
             try:
                 term_lst_1 = str(text_arr_1[idx]).lower().split()
                 term_lst_2 = str(text_arr_2[idx]).lower().split()
