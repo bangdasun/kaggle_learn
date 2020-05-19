@@ -1,10 +1,11 @@
 """
-Transformers to extract text similarity features
+The module `feature_engineering.text.text_similarity` includes functions and classes to calculate text similarity
 
 References:
     https://github.com/h2oai/driverlessai-recipes/blob/master/transformers/nlp/text_similarity_transformers.py
 
 """
+
 import nltk
 import editdistance
 import numpy as np

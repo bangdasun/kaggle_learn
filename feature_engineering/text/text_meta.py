@@ -1,3 +1,11 @@
+"""
+The module `feature_engineering.text.text_meta` includes functions and classes to extract meta features from text
+    - number of characters
+    - number of words
+    - number of unique words
+    ...
+
+"""
 
 import re
 import string

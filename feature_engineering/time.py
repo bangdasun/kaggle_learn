@@ -1,3 +1,10 @@
+"""
+The module `feature_engineering.time` includes functions and classes to process and extract datetime features
+
+References:
+    https://github.com/h2oai/driverlessai-recipes/blob/master/transformers/nlp/text_similarity_transformers.py
+
+"""
 
 import numpy as np
 import pandas as pd

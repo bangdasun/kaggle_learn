@@ -1,3 +1,7 @@
+"""
+The module `model_runner.cross_validation_runner` includes functions to run k-fold cross validation using specified models
+
+"""
 
 import numpy as np
 import pandas as pd

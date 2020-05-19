@@ -1,3 +1,8 @@
+"""
+The module `feature_importance.ensemble_feature_importance` includes functions to calculate permutation importance
+using lightgbm
+
+"""
 
 import numpy as np
 import pandas as pd

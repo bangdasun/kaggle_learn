@@ -1,3 +1,7 @@
+"""
+The module `feature_engineering.statistics` includes functions and classes to extract statistical features from data
+
+"""
 
 import numpy as np
 import pandas as pd

@@ -1,3 +1,9 @@
+"""
+The module `preprocessing.tabular` includes functions and classes to preprocess tabular data
+    - encode categorical data with specified values
+    - improved categorical encoder
+
+"""
 
 import logging
 import numpy as np

@@ -1,3 +1,10 @@
+"""
+The module `preprocessing.text` includes functions and classes to preprocess text data
+    - tokenize and process unstructued text data into sequence data
+    - load word embeddings
+    - normalize text
+
+"""
 
 import re
 import string

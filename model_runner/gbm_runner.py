@@ -1,3 +1,7 @@
+"""
+The module `model_runner.gbm_runner` includes functions to run lightgbm and xgboost
+
+"""
 
 import os
 import pickle
