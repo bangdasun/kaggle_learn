@@ -64,17 +64,21 @@ def load_pretrained_word_embeddings(embedding_path, tokenizer, **kwargs):
     def _get_coefs(word, *arr):
         return word, np.asarray(arr, dtype='float32')
 
-    embeddings_index = dict(_get_coefs(*o.strip().rsplit(' ')) for o in open(embedding_path))
+    embeddings_index = dict(_get_coefs(*o.strip().rsplit(' ')) for o in open(embedding_path, encoding='utf-8', errors='ignore'))
     word_index = tokenizer.word_index
     num_words = min(max_features, len(word_index))
     embeddings_matrix = np.zeros((num_words, embedding_size))
     for word, i in word_index.items():
+        i -= 1
         if i >= max_features:
             continue
         embeddings_vector = embeddings_index.get(word)
         # oov or not
         if embeddings_vector is not None:
             embeddings_matrix[i] = embeddings_vector
+
+        # make zero as start
+        word_index[word] -= 1
 
     return dict(embeddings_matrix=embeddings_matrix,
                 word_index=word_index)
