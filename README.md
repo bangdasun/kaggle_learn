@@ -17,6 +17,7 @@ Some commonly used feature engineering methods used in kaggle competitions:
 - text meta features
 - text similarity features
 - time meta features
+- ...
 
 #### Models
 
@@ -32,9 +33,36 @@ Neural network templates for different tasks:
 
 Functions / classes that takes data and run specified models (with cross validation).
 
-
 #### Feature Importance
+
+- Permutation feature importance
 
 #### Metrics
 
+- customized `keras` callbacks
+
 #### Utilities
+
+Utility functions:
+
+- reduce `pandas` dataframe memory
+- timer / logger
+- ...
+
+### Usage
+
+Clone this repository:
+
+```
+git clone https://github.com/bangdasun/kaggle_learn.git
+```
+
+Create environment to install required packages:
+
+```
+cd kaggle_learn
+conda env create -f standard_env.yaml
+```
+
+
+
