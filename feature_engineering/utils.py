@@ -11,7 +11,7 @@ class FeatureSelector(TransformerMixin):
         elif isinstance(features, str):
             self.features = [features]
         else:
-            raise ValueError('`feature` cannot be in type: {}'.format(type(features)))
+            raise ValueError(f'`feature` cannot be in type: {type(features)}')
 
     def fit(self, df: pd.DataFrame, y=None):
         return self

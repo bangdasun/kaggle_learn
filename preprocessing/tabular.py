@@ -130,7 +130,7 @@ class CategoricalLabelEncoder(OrdinalEncoder):
             # get the mask for new categories
             new_categories_mask_col = ~(df_processed[feat].isin(categories))
             if np.sum(new_categories_mask_col) > 0:
-                logging.warning('New categories found in {}!'.format(feat))
+                logging.warning(f'New categories found in {feat}!')
 
                 # replace the new categories with existing category
                 df_processed.loc[new_categories_mask_col, feat] = categories[0]

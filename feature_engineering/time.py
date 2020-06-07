@@ -21,7 +21,7 @@ def convert_datetime(df, col, unix_time=False):
     :return          : pd.Series, converted datetime columns
     """
     if not isinstance(col, str):
-        raise ValueError('{} is not a string'.format(col))
+        raise ValueError(f'{col} is not a string')
 
     if unix_time:
         return pd.to_datetime(df[col], unit='s')

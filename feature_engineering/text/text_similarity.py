@@ -29,7 +29,7 @@ class NGramsSimilarityTransformer(TransformerMixin):
         elif self.method == 'dice':
             score = 2 * len(text_set_1.intersection(text_set_2)) / (len(text_set_1) + len(text_set_2))
         else:
-            raise NotImplementedError(f'Not support method {self.methpd}.')
+            raise NotImplementedError(f'Not support method {self.method}.')
         return score
 
     def fit(self, X, y=None):
@@ -47,8 +47,9 @@ class NGramsSimilarityTransformer(TransformerMixin):
                 text_set_1 = set(nltk.ngrams(str(text_arr_1[idx]).lower().split(), self.ngrams))
                 text_set_2 = set(nltk.ngrams(str(text_arr_2[idx]).lower().split(), self.ngrams))
                 output.append(self._score(text_set_1, text_set_2))
-            except:
+            except Exception as e:
                 output.append(-1)
+                print(f'Exception raised:\n{e}')
         return np.array(output).reshape(-1, 1)
 
 
@@ -73,6 +74,7 @@ class TermEditDistanceTransformer(TransformerMixin):
                 term_lst_1 = str(text_arr_1[idx]).lower().split()
                 term_lst_2 = str(text_arr_2[idx]).lower().split()
                 output.append(editdistance.eval(term_lst_1, term_lst_2))
-            except:
+            except Exception as e:
                 output.append(-1)
+                print(f'Exception raised:\n{e}')
         return np.array(output).reshape(-1, 1)

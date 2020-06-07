@@ -19,7 +19,8 @@ def text_len(x):
     """ Extract string length """
     try:
         return len(str(x))
-    except:
+    except Exception as e:
+        print(f'Exception raised:\n{e}')
         return 0
 
 
@@ -27,7 +28,8 @@ def count_word(x, sep=None):
     """ Extract number of words in a string """
     try:
         return len(str(x).split(sep))
-    except:
+    except Exception as e:
+        print(f'Exception raised:\n{e}')
         return 0
 
 
@@ -35,7 +37,8 @@ def count_unique_word(x, sep=None):
     """ Extract number of unique words in a string """
     try:
         return len(set(str(x).split(sep)))
-    except:
+    except Exception as e:
+        print(f'Exception raised:\n{e}')
         return 0
 
 
@@ -43,7 +46,8 @@ def count_symbol(x, symbol=None):
     """ Extract number of symbol in a string """
     try:
         return str(x).count(symbol)
-    except:
+    except Exception as e:
+        print(f'Exception raised:\n{e}')
         return 0
 
 
@@ -51,7 +55,8 @@ def count_capital_letters(x):
     """ Extract number of captial letters in a string """
     try:
         return sum([s.isupper() for s in list(str(x))])
-    except:
+    except Exception as e:
+        print(f'Exception raised:\n{e}')
         return 0
 
 
@@ -63,7 +68,8 @@ def count_common_words(x, y):
             if y.find(w) >= 0:
                 cnt += 1
         return cnt
-    except:
+    except Exception as e:
+        print(f'Exception raised:\n{e}')
         return 0
 
 
@@ -72,7 +78,8 @@ def search_symbol(x, symbol=None):
     result = re.search(symbol, str(x))
     try:
         return result.start()
-    except:
+    except Exception as e:
+        print(f'Exception raised:\n{e}')
         return -1
 
 
@@ -80,7 +87,8 @@ def extract_capital_letters(x):
     """ Extract capital letters from string """
     try:
         return ''.join([s for s in x if s.isupper()])
-    except:
+    except Exception as e:
+        print(f'Exception raised:\n{e}')
         return ''
 
 
@@ -165,7 +173,8 @@ class WordPositionTransformer(TextMetaTransformer):
         result = re.search(self.symbol, x)
         try:
             return result.start()
-        except:
+        except Exception as e:
+            print(f'Exception raised:\n{e}')
             return -1
 
     def transform(self, X):

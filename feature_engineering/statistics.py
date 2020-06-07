@@ -29,7 +29,7 @@ def add_group_stats(df, cols, value, method, new_cols_out=False):
 
     method_options = ['nunique', 'count', 'mean', 'median', 'std', 'var', 'max', 'min', 'sum', 'skew', 'kurtosis']
     if any([True if m not in method_options else False for m in method]):
-        raise AttributeError('Only support method in {}.'.format(method_options))
+        raise AttributeError(f'Only support method in {method_options}.')
 
     if isinstance(cols, str):
         cols = [cols]
@@ -116,7 +116,7 @@ def merge_groupby_feat(df, agg_config, calc_diff=True):
             if calc_diff:
                 df, new_cols = add_group_stats(df, cols=agg_pair[0], value=agg_feat[0], method=agg_feat[1], new_cols_out=True)
                 for c in new_cols:
-                    df["{}_{}_diff".format(agg_feat[0], c)] = df[agg_feat[0]] - df[c]
+                    df[f'{agg_feat[0]}_{c}_diff'] = df[agg_feat[0]] - df[c]
             else:
                 df = add_group_stats(df, cols=agg_pair[0], value=agg_feat[0], method=agg_feat[1], new_cols_out=False)
     return df
