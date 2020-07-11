@@ -14,15 +14,20 @@ def lgbm_permutation_importance(X_train, y_train, features, features_categorical
     """
     Get feature permutation importance based on lightgbm
 
-    :param X_train              : np.array, training data
-    :param y_train              : np.array, training label
-    :param features             : list (str), features
-    :param features_categorical : list (str), categorical features
-    :param train_params         : dict, lightgbm training parameters
-    :param shuffle              : boolean, whether or not to shuffle label
-    :param seed                 : int, random seed for label shuffling
-    :param kwargs               : other parameters needed for running lightgbm
-    :return:
+    Parameters
+    ----------
+    X_train              : np.array, training data
+    y_train              : np.array, training label
+    features             : list (str), features
+    features_categorical : list (str), categorical features
+    train_params         : dict, lightgbm training parameters
+    shuffle              : boolean, whether or not to shuffle label
+    seed                 : int, random seed for label shuffling
+    kwargs               : other parameters needed for running lightgbm
+
+    Returns
+    -------
+
     """
     if shuffle:
         np.random.seed(seed)
@@ -46,17 +51,22 @@ def null_feature_importance(X_train, y_train, features, features_categorical, tr
     Get feature null importance based on lightgbm
     Ideally it should support other ensemble model types
 
-    :param X_train              : np.array, training data
-    :param y_train              : np.array, training label
-    :param features             : list (str), features
-    :param features_categorical : list (str), categorical features
-    :param train_params         : dict, lightgbm training parameters
-    :param shuffle              : boolean, whether or not to shuffle label
-    :param seed                 : int, random seed for label shuffling
-    :param num_runs             : int, number of runs to get the null importance distribution
-    :param method               : str, currently only support lightgbm
-    :param kwargs               : other parameters needed for running lightgbm
-    :return:
+    Parameters
+    ----------
+    X_train              : np.array, training data
+    y_train              : np.array, training label
+    features             : list (str), features
+    features_categorical : list (str), categorical features
+    train_params         : dict, lightgbm training parameters
+    shuffle              : boolean, whether or not to shuffle label
+    seed                 : int, random seed for label shuffling
+    num_runs             : int, number of runs to get the null importance distribution
+    method               : str, currently only support lightgbm
+    kwargs               : other parameters needed for running lightgbm
+
+    Returns
+    -------
+
     """
     if method != 'lgb':
         raise NotImplementedError('Currently only support method = "lgb".')

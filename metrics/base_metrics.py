@@ -15,9 +15,13 @@ def multilabel_f1(y_true, y_pred):
 
     Multi-labels f1 score
 
-    :param y_true    : iterable object (list, array)
-    :param y_pred    : iterable object (list, array)
-    :return f1_score : float number
+    Parameters
+    ----------
+    y_true    : iterable object (list, array)
+    y_pred    : iterable object (list, array)
+
+    Returns
+    -------
 
     Examples
     --------

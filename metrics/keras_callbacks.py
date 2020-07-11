@@ -8,8 +8,11 @@ class RocAucEvaluation(Callback):
     """ Calculate ROC AUC """
     def __init__(self, validation_data, interval=1):
         """
-        :param validation_data : tuple, validation data (X, y)
-        :param interval        : int, number of epochs between checkpoints
+
+        Parameters
+        ----------
+        validation_data : tuple, validation data (X, y)
+        interval        : int, number of epochs between checkpoints
         """
         super().__init__()
         self.X_valid, self.y_valid = validation_data
@@ -26,8 +29,11 @@ class PRAucEvaluation(Callback):
     """ Calculate Precision - Recall AUC """
     def __init__(self, validation_data, interval=1):
         """
-        :param validation_data : tuple, validation data (X, y)
-        :param interval        : int, number of epochs between checkpoints
+
+        Parameters
+        ----------
+        validation_data : tuple, validation data (X, y)
+        interval        : int, number of epochs between checkpoints
         """
         super().__init__()
         self.X_valid, self.y_valid = validation_data
@@ -44,8 +50,11 @@ class F1Evaluation(Callback):
     """ Calculate F1 score """
     def __init__(self, validation_data, interval=1):
         """
-        :param validation_data : tuple, validation data (X, y)
-        :param interval        : int, number of epochs between checkpoints
+
+        Parameters
+        ----------
+        validation_data : tuple, validation data (X, y)
+        interval        : int, number of epochs between checkpoints
         """
         super().__init__()
         self.X_valid, self.y_valid = validation_data

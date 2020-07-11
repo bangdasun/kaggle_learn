@@ -24,11 +24,13 @@ class NBLRClassifier(BaseEstimator, ClassifierMixin):
     def __init__(self, C=1.0, dual=False, n_jobs=1):
         """
 
-        :param C     : float, Inverse of regularization strength; must be a positive float.
+        Parameters
+        ----------
+        C     : float, Inverse of regularization strength; must be a positive float.
                        Like in support vector machines, smaller values specify stronger regularization.
-        :param dual  : boolean, Dual or primal formulation. Dual formulation is only implemented for
+        dual  : boolean, Dual or primal formulation. Dual formulation is only implemented for
                        l2 penalty with liblinear solver. Prefer dual=False when n_samples > n_features.
-        :param n_jobs: int or None, Number of CPU cores used when parallelizing over classes if multi_class=’ovr’”.
+        n_jobs: int or None, Number of CPU cores used when parallelizing over classes if multi_class=’ovr’”.
                        This parameter is ignored when the solver is set to ‘liblinear’ regardless of whether
                        ‘multi_class’ is specified or not. None means 1 unless in a joblib.parallel_backend context.
                        -1 means using all processors.

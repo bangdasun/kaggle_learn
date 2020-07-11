@@ -22,15 +22,18 @@ warnings.filterwarnings('ignore')
 
 def process_text_to_sequence(X_train, X_test, **kwargs):
     """
-
     Process text data (array) to equal length sequences use keras
 
-    :param X_train : np.array with shape (m, )
-    :param X_test  : np.array with shape (n, )
-    :param kwargs  : other parameters needed
-    :return:
-    """
+    Parameters
+    ----------
+    X_train : np.array with shape (m, )
+    X_test  : np.array with shape (n, )
+    kwargs  : other parameters needed
 
+    Returns
+    -------
+
+    """
     max_features = kwargs.get('max_features', 10000)
     max_len = kwargs.get('max_len', 50)
 
@@ -56,15 +59,18 @@ def process_text_to_sequence(X_train, X_test, **kwargs):
 
 def load_pretrained_word_embeddings(embedding_path, tokenizer, **kwargs):
     """
-
     Load pretrained word embeddings
 
-    :param embedding_path : str, example: './embeddings/glove.840B.300d/glove.840B.300d.txt'
-    :param tokenizer      : keras tokenizer, return from process_text_to_sequence
-    :param kwargs         : other parameters needed
-    :return:
-    """
+    Parameters
+    ----------
+    embedding_path : str, example: './embeddings/glove.840B.300d/glove.840B.300d.txt'
+    tokenizer      : keras tokenizer, return from process_text_to_sequence
+    kwargs         : other parameters needed
 
+    Returns
+    -------
+
+    """
     embedding_size = kwargs.get('embedding_size', 300)
     max_features = kwargs.get('max_features', 10000)
 

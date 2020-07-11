@@ -66,13 +66,18 @@ def get_sentence_pretrained_index(sentences, words_pretrained_index):
     Since sentences have different length, 0 will be padded at
     the end for sentence length less than max length
 
-    :param sentences:
-    :param words_pretrained_index:
-    :return: word_index_sentence, mask.
-             word_index_sentence[i, :] is the word indices in sentence i
-             mask[i,:] is the mask for sentence i (0 means no word at the location)
-    """
+    Parameters
+    ----------
+    sentences
+    words_pretrained_index
 
+    Returns
+    -------
+    word_index_sentence, mask.
+     word_index_sentence[i, :] is the word indices in sentence i
+     mask[i,:] is the mask for sentence i (0 means no word at the location)
+
+    """
     def get_sequence(sentence, words_pretrained_index):
         return [lookup_pretrained_index(words_pretrained_index, word) for word in sentence.split()]
 

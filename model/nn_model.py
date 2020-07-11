@@ -16,11 +16,16 @@ def make_rnn_classifier(input_size, output_size, embedding_matrix, **kwargs):
     Model structure refers from:
     https://www.kaggle.com/konohayui/bi-gru-cnn-poolings
 
-    :param input_size       : tuple, input size, i.e. sequence length, example: (70, )
-    :param output_size      : int, output size (number of classes)
-    :param embedding_matrix : array, embedding lookup matrix
-    :param kwargs           : other parameters needed
-    :return:
+    Parameters
+    ----------
+    input_size       : tuple, input size, i.e. sequence length, example: (70, )
+    output_size      : int, output size (number of classes)
+    embedding_matrix : array, embedding lookup matrix
+    kwargs           : other parameters needed
+
+    Returns
+    -------
+
     """
     max_features = kwargs.get('max_features', 10000)
     embedding_size = kwargs.get('embedding_size', 300)

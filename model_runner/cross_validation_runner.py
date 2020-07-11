@@ -29,13 +29,18 @@ def run_classifier_kfold_cv(X_train, y_train, X_test=None, classifier='rf', clas
     Run classification model with K folds cross validation
     If test data is given, the final prediction (probabilities) for test data are averaged over all folds
 
-    :param X_train          : np.array, training data
-    :param y_train          : np.array, training label
-    :param X_test           : np.array, test data
-    :param classifier       : str, classifier name
-    :param classifier_params: dict, classifier training parameters
-    :param kwargs           : other parameters needed
-    :return:
+    Parameters
+    ----------
+    X_train          : np.array, training data
+    y_train          : np.array, training label
+    X_test           : np.array, test data
+    classifier       : str, classifier name
+    classifier_params: dict, classifier training parameters
+    kwargs           : other parameters needed
+
+    Returns
+    -------
+
     """
 
     folds = kwargs.get('n_folds', 5)

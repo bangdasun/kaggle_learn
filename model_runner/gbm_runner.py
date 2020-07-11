@@ -18,22 +18,25 @@ def run_lgbm(X_train, y_train, X_valid, y_valid, X_test,
 
     Run lightgbm model
 
-    :param X_train              : np.array, training data
-    :param y_train              : np.array, training label
-    :param X_val                : np.array, validation data
-    :param y_val                : np.array, validation label
-    :param X_test               : np.array, test data
-    :param train_params         : dict, lightgbm training parameters
-    :param features             : list (str), features
-    :param features_categorical : list (str), categorical features
-    :param kwargs               : other parameters needed for running lightgbm
-    :return:
+    Parameters
+    ----------
+    X_train              : np.array, training data
+    y_train              : np.array, training label
+    X_val                : np.array, validation data
+    y_val                : np.array, validation label
+    X_test               : np.array, test data
+    train_params         : dict, lightgbm training parameters
+    features             : list (str), features
+    features_categorical : list (str), categorical features
+    kwargs               : other parameters needed for running lightgbm
+
+    Returns
+    -------
                                 - lightgbm model
                                 - validation data predictions
                                 - test data predictions
                                 - feature importance (gain and split) dataframe
     """
-
     num_boost_round = kwargs.get('num_boost_round', 1000)
     early_stopping_rounds = kwargs.get('early_stopping_rounds', 200)
     verbose_eval = kwargs.get('verbose_eval', 100)
@@ -67,17 +70,21 @@ def run_xgb(X_train, y_train, X_valid, y_valid, X_test, features, train_params, 
     Run xgboost model
     See more at https://xgboost.readthedocs.io/en/latest/python/python_api.html
 
-    :param X_train              : np.array or scipy sparse matrix, training data
-    :param y_train              : np.array, training label
-    :param X_val                : np.array or scipy sparse matrix, validation data
-    :param y_val                : np.array, validation label
-    :param X_test               : np.array or scipy sparse matrix, test data
-    :param train_params         : dict, lightgbm training parameters
-    :param features             : list (str), features
-    :param kwargs               : other parameters needed for running lightgbm
-    :return:
-    """
+    Parameters
+    ----------
+    X_train              : np.array or scipy sparse matrix, training data
+    y_train              : np.array, training label
+    X_val                : np.array or scipy sparse matrix, validation data
+    y_val                : np.array, validation label
+    X_test               : np.array or scipy sparse matrix, test data
+    train_params         : dict, lightgbm training parameters
+    features             : list (str), features
+    kwargs               : other parameters needed for running lightgbm
 
+    Returns
+    -------
+
+    """
     num_boost_round = kwargs.get('num_boost_round', 1000)
     early_stopping_rounds = kwargs.get('early_stopping_rounds', 200)
     verbose_eval = kwargs.get('verbose_eval', 100)

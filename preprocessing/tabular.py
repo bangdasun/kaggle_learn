@@ -26,7 +26,9 @@ class ValueEncoder(BaseEstimator, TransformerMixin):
         """
         Init use mapping from missing value to filling value
 
-        :param old_to_new: format - {feature: [dtype, {old_value: new_value}]}
+        Parameters
+        ----------
+        old_to_new: format - {feature: [dtype, {old_value: new_value}]}
         """
         self.old_to_new = old_to_new
 
@@ -67,8 +69,10 @@ class CategoricalLabelEncoder(OrdinalEncoder):
             https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OrdinalEncoder.html#sklearn.preprocessing.OrdinalEncoder
         for detailed descriptions
 
-        :param categories:
-        :param dtype:
+        Parameters
+        ----------
+        categories:
+        dtype:
         """
         super().__init__(categories=categories, dtype=dtype)
         self.mapping = None
@@ -78,9 +82,10 @@ class CategoricalLabelEncoder(OrdinalEncoder):
         """
         Fit the encoder
 
-        :param df: input data (feature)
-        :param y: label, not needed by default
-        :return:
+        Parameters
+        ----------
+        df: input data (feature)
+        y: label, not needed by default
         """
         self.columns = list(df.columns)
         df_processed = df.copy()
@@ -94,8 +99,9 @@ class CategoricalLabelEncoder(OrdinalEncoder):
         """
         Encoding categorical features, new categories are encoded as missing (-1)
 
-        :param df:   input data (feature)
-        :return:
+        Parameters
+        ----------
+        df:   input data (feature)
         """
         df_processed = df.copy()
 
@@ -116,8 +122,9 @@ class CategoricalLabelEncoder(OrdinalEncoder):
         """
         Get the mask for new categories
 
-        :param df: input data (feature)
-        :return:
+        Parameters
+        ----------
+        df: input data (feature)
         """
         new_categories_mask = df.copy()
         new_categories_mask.loc[:, :] = False

@@ -9,17 +9,18 @@ import pandas as pd
 
 def add_group_stats(df, cols, value, method, new_cols_out=False):
     """
-    Refer from @author: plantsgo @address: https://www.kaggle.com/plantsgo
 
-    Extract simple groupby statistical features
+    Parameters
+    ----------
+    df: pd.DataFrame, input dataframe
+    cols: str or list of str, columns to groupby
+    value: str, column to be calculated on
+    method: str or list of str, aggregate function
+    new_cols_out: boolean, whether output new column names (feature names), default=False
 
-    :param df           : pd.DataFrame, input dataframe
-    :param cols         : str or list of str, columns to groupby
-    :param value        : str, column to be calculated on
-    :param method       : str or list of str, aggregate function
-    :param new_cols_out : boolean, whether output new column names (feature names), default=False
-
-    :return             : df pd.DataFrame, input dataframe with features added
+    Returns
+    -------
+    df pd.DataFrame, input dataframe with features added
     """
     if not isinstance(value, str):
         raise NotImplementedError('Only support value to be string format (column name)')
@@ -94,21 +95,23 @@ def add_group_value_count(df, cols, value):
 
 def merge_groupby_feat(df, agg_config, calc_diff=True):
     """
-
     Extract multiple groupby features
-    
-    :param df           : pd.DataFrame, input dataframe
-    :param agg_func_map : dict, map from aggregation function to feature extraction function
-    :param agg_config   : list, collection of categorical features to groupby and numerical features to aggregate
-    :param calc_diff    : boolean, whether or not to calculate the difference between raw feature and agg feature
-    
-    :return df          : pd.DataFrame, input dataframe with extracted features added
+
+    Parameters
+    ----------
+    df: pd.DataFrame, input dataframe
+    agg_func_map: dict, map from aggregation function to feature extraction function
+    agg_config: list, collection of categorical features to groupby and numerical features to aggregate
+    calc_diff: boolean, whether or not to calculate the difference between raw feature and agg feature
+
+    Returns
+    -------
+    pd.DataFrame, input dataframe with extracted features added
 
     Examples
     --------
     >>> agg_config = [["ORGANIZATION_TYPE"], [("AMT_INCOME_TOTAL", "mean"),
     ...                                       ("AMT_INCOME_TOTAL", "median")])]
-    
     """
     for agg_pair in agg_config:
         for agg_feat in agg_pair[1]:

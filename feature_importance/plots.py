@@ -7,9 +7,14 @@ def plot_feature_importance_df(importance_df, figsize=(12, 30)):
     """
     Plot feature importance using horizontal bar plot
 
-    :param importance_df: pd.DataFrame, contains 2 columns: features, importance
-    :param figsize      : tuple, figure size
-    :return:
+    Parameters
+    ----------
+    importance_df: pd.DataFrame, contains 2 columns: features, importance
+    figsize      : tuple, figure size
+
+    Returns
+    -------
+
     """
     assert 'features' in importance_df.columns and 'importance' in importance_df.columns
     importance_df = importance_df.set_index('features')

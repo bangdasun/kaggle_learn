@@ -14,11 +14,16 @@ def convert_datetime(df, col, unix_time=False):
     """
     Convert datetime columns to pandas datetime format
 
-    :param df        : pd.DataFrame, input dataframe
-    :param col       : str, column name of datetime
-    :param unix_time : boolean, whether the column is in unix time format (seconds from 1970-01-01)
+    Parameters
+    ----------
+    df: pd.DataFrame, input dataframe
+    col: str, column name of datetime
+    unix_time: boolean, whether the column is in unix time format (seconds from 1970-01-01)
 
-    :return          : pd.Series, converted datetime columns
+    Returns
+    -------
+    pd.Series, converted datetime columns
+
     """
     if not isinstance(col, str):
         raise ValueError(f'{col} is not a string')
@@ -33,12 +38,17 @@ def extract_datetime_components(df, cols, drop_raw=False, unix_time=False):
     """
     Extract datetime components from datetime columns
 
-    :param df        : pd.DataFrame, input dataframe
-    :param cols      : str or list of str, column names of datetime
-    :param drop_raw  : boolean, whether to drop the raw datetime column after extraction
-    :param unix_time : boolean, whether the column is in unix time format (seconds from 1970-01-01)
+    Parameters
+    ----------
+    df: pd.DataFrame, input dataframe
+    cols: str or list of str, column names of datetime
+    drop_raw: boolean, whether to drop the raw datetime column after extraction
+    unix_time: boolean, whether the column is in unix time format (seconds from 1970-01-01)
 
-    :return df       : pd.DataFrame, input dataframe with extracted features added
+    Returns
+    -------
+    pd.DataFrame, input dataframe with extracted features added
+
     """
     if isinstance(cols, str):
         cols = [cols]

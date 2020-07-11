@@ -15,6 +15,7 @@ import pandas as pd
 from sklearn.base import TransformerMixin
 from kaggle_learn.utils import convert_to_numpy_1d_array
 
+
 def text_len(x):
     """ Extract string length """
     try:
