@@ -21,7 +21,7 @@ def text_len(x):
     try:
         return len(str(x))
     except Exception as e:
-        print(f'Exception raised:\n{e}')
+        print(f"Exception raised:\n{e}")
         return 0
 
 
@@ -30,7 +30,7 @@ def count_word(x, sep=None):
     try:
         return len(str(x).split(sep))
     except Exception as e:
-        print(f'Exception raised:\n{e}')
+        print(f"Exception raised:\n{e}")
         return 0
 
 
@@ -39,7 +39,7 @@ def count_unique_word(x, sep=None):
     try:
         return len(set(str(x).split(sep)))
     except Exception as e:
-        print(f'Exception raised:\n{e}')
+        print(f"Exception raised:\n{e}")
         return 0
 
 
@@ -48,7 +48,7 @@ def count_symbol(x, symbol=None):
     try:
         return str(x).count(symbol)
     except Exception as e:
-        print(f'Exception raised:\n{e}')
+        print(f"Exception raised:\n{e}")
         return 0
 
 
@@ -57,7 +57,7 @@ def count_capital_letters(x):
     try:
         return sum([s.isupper() for s in list(str(x))])
     except Exception as e:
-        print(f'Exception raised:\n{e}')
+        print(f"Exception raised:\n{e}")
         return 0
 
 
@@ -70,7 +70,7 @@ def count_common_words(x, y):
                 cnt += 1
         return cnt
     except Exception as e:
-        print(f'Exception raised:\n{e}')
+        print(f"Exception raised:\n{e}")
         return 0
 
 
@@ -80,17 +80,17 @@ def search_symbol(x, symbol=None):
     try:
         return result.start()
     except Exception as e:
-        print(f'Exception raised:\n{e}')
+        print(f"Exception raised:\n{e}")
         return -1
 
 
 def extract_capital_letters(x):
     """ Extract capital letters from string """
     try:
-        return ''.join([s for s in x if s.isupper()])
+        return "".join([s for s in x if s.isupper()])
     except Exception as e:
-        print(f'Exception raised:\n{e}')
-        return ''
+        print(f"Exception raised:\n{e}")
+        return ""
 
 
 class TextMetaTransformer(TransformerMixin):
@@ -175,7 +175,7 @@ class WordPositionTransformer(TextMetaTransformer):
         try:
             return result.start()
         except Exception as e:
-            print(f'Exception raised:\n{e}')
+            print(f"Exception raised:\n{e}")
             return -1
 
     def transform(self, X):

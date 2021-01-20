@@ -16,20 +16,20 @@ from sklearn.base import TransformerMixin
 class NGramsSimilarityTransformer(TransformerMixin):
     """ Text similarity based on n-gram """
 
-    def __init__(self, ngrams=1, method='ngrams'):
+    def __init__(self, ngrams=1, method="ngrams"):
         self.ngrams = ngrams
         self.method = method
 
     def _score(self, text_set_1, text_set_2):
         score = -1
-        if self.method == 'ngrams':
+        if self.method == "ngrams":
             score = len(text_set_1.intersection(text_set_2))
-        elif self.method == 'jaccard':
+        elif self.method == "jaccard":
             score = len(text_set_1.intersection(text_set_2)) / len(text_set_1.union(text_set_2))
-        elif self.method == 'dice':
+        elif self.method == "dice":
             score = 2 * len(text_set_1.intersection(text_set_2)) / (len(text_set_1) + len(text_set_2))
         else:
-            raise NotImplementedError(f'Not support method {self.method}.')
+            raise NotImplementedError(f"Not support method {self.method}.")
         return score
 
     def fit(self, X, y=None):
@@ -49,7 +49,7 @@ class NGramsSimilarityTransformer(TransformerMixin):
                 output.append(self._score(text_set_1, text_set_2))
             except Exception as e:
                 output.append(-1)
-                print(f'Exception raised:\n{e}')
+                print(f"Exception raised:\n{e}")
         return np.array(output).reshape(-1, 1)
 
 
@@ -76,5 +76,5 @@ class TermEditDistanceTransformer(TransformerMixin):
                 output.append(editdistance.eval(term_lst_1, term_lst_2))
             except Exception as e:
                 output.append(-1)
-                print(f'Exception raised:\n{e}')
+                print(f"Exception raised:\n{e}")
         return np.array(output).reshape(-1, 1)

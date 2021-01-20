@@ -41,15 +41,15 @@ class ValueEncoder(BaseEstimator, TransformerMixin):
             dtype, old_to_new = info[0], info[1]
             for old_val, new_val in old_to_new.items():
                 if np.isnan(old_val):
-                    logging.warning('Old value `np.nan` cannot be found using `==`'
-                                    ' `use pd.DataFrame.fillna()` impute first.')
+                    logging.warning("Old value `np.nan` cannot be found using `==`"
+                                    " `use pd.DataFrame.fillna()` impute first.")
                 df_processed.loc[df_processed[col] == old_val, col] = new_val
-                if dtype == 'numerical':
+                if dtype == "numerical":
                     df_processed[col] = df_processed[col].astype(np.float)
-                elif dtype == 'categorical':
+                elif dtype == "categorical":
                     df_processed[col] = df_processed[col].astype(str)
                 else:
-                    logging.warning('dtype {} not defined'.format(dtype))
+                    logging.warning("dtype {} not defined".format(dtype))
 
         return df_processed
 
@@ -62,7 +62,7 @@ class CategoricalLabelEncoder(OrdinalEncoder):
 
     """
 
-    def __init__(self, categories: [List[list], List[np.ndarray], str] = 'auto',
+    def __init__(self, categories: [List[list], List[np.ndarray], str] = "auto",
                  dtype=np.float64):
         """
         See
@@ -108,7 +108,7 @@ class CategoricalLabelEncoder(OrdinalEncoder):
         try:
             return super().transform(df_processed)
         except ValueError:
-            logging.warning('New categories are encoded as -1')
+            logging.warning("New categories are encoded as -1")
         new_categories_mask, df_processed = self._mask_new_categories(df)
         df_processed = super().transform(df_processed)
 
@@ -131,13 +131,13 @@ class CategoricalLabelEncoder(OrdinalEncoder):
         df_processed = df.copy()
 
         if self.mapping is None:
-            raise NotFittedError('CategoricalEncoder needs to be fitted to get the categories mapping!')
+            raise NotFittedError("CategoricalEncoder needs to be fitted to get the categories mapping!")
 
         for feat, categories in self.mapping.items():
             # get the mask for new categories
             new_categories_mask_col = ~(df_processed[feat].isin(categories))
             if np.sum(new_categories_mask_col) > 0:
-                logging.warning(f'New categories found in {feat}!')
+                logging.warning(f"New categories found in {feat}!")
 
                 # replace the new categories with existing category
                 df_processed.loc[new_categories_mask_col, feat] = categories[0]

@@ -45,7 +45,7 @@ class SIFEmbeddingTransformer(TransformerMixin):
         output_sequence = process_text_to_sequence(X, np.array([]), max_features=self.max_features, max_len=self.max_len)
         output_embedding = load_pretrained_word_embeddings(
             word_embedding_file,
-            output_sequence['tokenizer'],
+            output_sequence["tokenizer"],
             embedding_size=self.embedding_size,
             max_features=self.max_features,
             max_len=self.max_len
@@ -57,8 +57,8 @@ class SIFEmbeddingTransformer(TransformerMixin):
 
     def transform(self, X):
         word_embedding = self._load_embedding(X, self.word_embedding_filename)
-        embeddings_matrix = word_embedding['embeddings_matrix']
-        word_index = word_embedding['word_index']
+        embeddings_matrix = word_embedding["embeddings_matrix"]
+        word_index = word_embedding["word_index"]
 
         # get word_to_weights dictionary
         word_weight = get_word_weight(self.word_weight_filename, self.weight_para)

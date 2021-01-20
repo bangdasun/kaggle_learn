@@ -22,7 +22,7 @@ class RocAucEvaluation(Callback):
         if epoch % self.interval == 0:
             y_pred = self.model.predict(self.X_valid, verbose=0)
             score = roc_auc_score(self.y_valid, y_pred)
-            print('ROC AUC - epoch: {:d} - score: {:.5f}'.format(epoch + 1, score))
+            print("ROC AUC - epoch: {:d} - score: {:.5f}".format(epoch + 1, score))
 
             
 class PRAucEvaluation(Callback):
@@ -43,7 +43,7 @@ class PRAucEvaluation(Callback):
         if epoch % self.interval == 0:
             y_pred = self.model.predict(self.X_valid, verbose=0)
             score = average_precision_score(self.y_valid, y_pred)
-            print('PR AUC - epoch: {:d} - score: {:.5f}'.format(epoch + 1, score))
+            print("PR AUC - epoch: {:d} - score: {:.5f}".format(epoch + 1, score))
 
             
 class F1Evaluation(Callback):
@@ -65,4 +65,4 @@ class F1Evaluation(Callback):
             y_pred_proba = self.model.predict(self.X_valid, verbose=0)
             y_pred = (y_pred_proba > threshold).astype(np.int)
             score = f1_score(self.y_valid, y_pred)
-            print('F1 - epoch: {:d} - score: {:.5f} threshold = {:.3f}'.format(epoch + 1, score, threshold))
+            print("F1 - epoch: {:d} - score: {:.5f} threshold = {:.3f}".format(epoch + 1, score, threshold))

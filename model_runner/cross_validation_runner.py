@@ -15,15 +15,15 @@ from sklearn.neural_network import MLPClassifier
 
 
 _builtin_classifier = {
-    'lr': LogisticRegression,
-    'knn': KNeighborsClassifier,
-    'svm': SVC,
-    'rf': RandomForestClassifier,
-    'mlp': MLPClassifier
+    "lr": LogisticRegression,
+    "knn": KNeighborsClassifier,
+    "svm": SVC,
+    "rf": RandomForestClassifier,
+    "mlp": MLPClassifier
 }
 
 
-def run_classifier_kfold_cv(X_train, y_train, X_test=None, classifier='rf', classifier_params=None, **kwargs):
+def run_classifier_kfold_cv(X_train, y_train, X_test=None, classifier="rf", classifier_params=None, **kwargs):
     """
 
     Run classification model with K folds cross validation
@@ -43,9 +43,9 @@ def run_classifier_kfold_cv(X_train, y_train, X_test=None, classifier='rf', clas
 
     """
 
-    folds = kwargs.get('n_folds', 5)
-    shuffle = kwargs.get('shuffle', True)
-    random_state = kwargs.get('random_state', 2019)
+    folds = kwargs.get("n_folds", 5)
+    shuffle = kwargs.get("shuffle", True)
+    random_state = kwargs.get("random_state", 2019)
     kfold = KFold(n_splits=folds, shuffle=shuffle, random_state=random_state)
     oof_preds = np.zeros(y_train.shape[0])
     oof_preds_proba = np.zeros(y_train.shape[0])
@@ -55,7 +55,7 @@ def run_classifier_kfold_cv(X_train, y_train, X_test=None, classifier='rf', clas
     if classifier_params is None:
         classifier_params = {}
     if not isinstance(classifier_params, dict):
-        raise ValueError('Argument `classifier_params` has to be dictionary or None by default.')
+        raise ValueError("Argument `classifier_params` has to be dictionary or None by default.")
 
     for n_fold, (trn_idx, val_idx) in enumerate(kfold.split(X_train, y_train)):
         X_train_, X_val_ = X_train[trn_idx], X_train[val_idx]
@@ -67,14 +67,14 @@ def run_classifier_kfold_cv(X_train, y_train, X_test=None, classifier='rf', clas
         clf_list.append(clf)
 
     # save out-of-fold predictions
-    output['oof_preds'] = oof_preds
-    output['oof_preds_proba'] = oof_preds_proba
+    output["oof_preds"] = oof_preds
+    output["oof_preds_proba"] = oof_preds_proba
 
     # run prediction on test data
     if X_test is not None:
         test_preds_proba = np.zeros(X_test.shape[0])
         for clf_ in clf_list:
             test_preds_proba += clf_.predict_proba(X_test)[:, 1] / folds
-        output['test_preds_proba'] = test_preds_proba
+        output["test_preds_proba"] = test_preds_proba
 
     return output

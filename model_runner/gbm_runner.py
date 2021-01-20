@@ -37,9 +37,9 @@ def run_lgbm(X_train, y_train, X_valid, y_valid, X_test,
                                 - test data predictions
                                 - feature importance (gain and split) dataframe
     """
-    num_boost_round = kwargs.get('num_boost_round', 1000)
-    early_stopping_rounds = kwargs.get('early_stopping_rounds', 200)
-    verbose_eval = kwargs.get('verbose_eval', 100)
+    num_boost_round = kwargs.get("num_boost_round", 1000)
+    early_stopping_rounds = kwargs.get("early_stopping_rounds", 200)
+    verbose_eval = kwargs.get("verbose_eval", 100)
 
     if train_params is None:
         train_params = {}
@@ -57,9 +57,9 @@ def run_lgbm(X_train, y_train, X_valid, y_valid, X_test,
     y_test_preds = lgb_model.predict(X_test, num_iteration=lgb_model.best_iteration)
 
     importance_df = pd.DataFrame()
-    importance_df['features'] = features
-    importance_df['importance_gain'] = lgb_model.feature_importance(importance_type='gain')
-    importance_df['importance_split'] = lgb_model.feature_importance(importance_type='split')
+    importance_df["features"] = features
+    importance_df["importance_gain"] = lgb_model.feature_importance(importance_type="gain")
+    importance_df["importance_split"] = lgb_model.feature_importance(importance_type="split")
 
     return lgb_model, y_valid_preds, y_test_preds, importance_df
 
@@ -85,9 +85,9 @@ def run_xgb(X_train, y_train, X_valid, y_valid, X_test, features, train_params, 
     -------
 
     """
-    num_boost_round = kwargs.get('num_boost_round', 1000)
-    early_stopping_rounds = kwargs.get('early_stopping_rounds', 200)
-    verbose_eval = kwargs.get('verbose_eval', 100)
+    num_boost_round = kwargs.get("num_boost_round", 1000)
+    early_stopping_rounds = kwargs.get("early_stopping_rounds", 200)
+    verbose_eval = kwargs.get("verbose_eval", 100)
 
     if train_params is None:
         train_params = {}
@@ -97,7 +97,7 @@ def run_xgb(X_train, y_train, X_valid, y_valid, X_test, features, train_params, 
     X_test = xgb.DMatrix(X_test, feature_names=features)
 
     xgb_model = xgb.train(train_params, dtrain=X_train_xgb,
-                          evals=[(X_train_xgb, 'train'), (X_valid_xgb, 'eval')],
+                          evals=[(X_train_xgb, "train"), (X_valid_xgb, "eval")],
                           num_boost_round=num_boost_round,
                           early_stopping_rounds=early_stopping_rounds,
                           verbose_eval=verbose_eval)

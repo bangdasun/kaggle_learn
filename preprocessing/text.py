@@ -17,7 +17,7 @@ from nltk.corpus import stopwords
 from nltk.stem.snowball import PorterStemmer, SnowballStemmer
 from keras.preprocessing import text, sequence
 
-warnings.filterwarnings('ignore')
+warnings.filterwarnings("ignore")
 
 
 def process_text_to_sequence(X_train, X_test, **kwargs):
@@ -34,11 +34,11 @@ def process_text_to_sequence(X_train, X_test, **kwargs):
     -------
 
     """
-    max_features = kwargs.get('max_features', 10000)
-    max_len = kwargs.get('max_len', 50)
+    max_features = kwargs.get("max_features", 10000)
+    max_len = kwargs.get("max_len", 50)
 
-    tokenizer = text.Tokenizer(num_words=max_features, lower=True, split=' ',
-                               filters='!"#$%&()*+,-./:;<=>?@[\\]^_`{|}~\t\n',
+    tokenizer = text.Tokenizer(num_words=max_features, lower=True, split=" ",
+                               filters="!"#$%&()*+,-./:;<=>?@[\\]^_`{|}~\t\n",
                                char_level=False, oov_token=None)
     tokenizer.fit_on_texts(list(X_train) + list(X_test))
 
@@ -63,7 +63,7 @@ def load_pretrained_word_embeddings(embedding_path, tokenizer, **kwargs):
 
     Parameters
     ----------
-    embedding_path : str, example: './embeddings/glove.840B.300d/glove.840B.300d.txt'
+    embedding_path : str, example: "./embeddings/glove.840B.300d/glove.840B.300d.txt"
     tokenizer      : keras tokenizer, return from process_text_to_sequence
     kwargs         : other parameters needed
 
@@ -71,13 +71,13 @@ def load_pretrained_word_embeddings(embedding_path, tokenizer, **kwargs):
     -------
 
     """
-    embedding_size = kwargs.get('embedding_size', 300)
-    max_features = kwargs.get('max_features', 10000)
+    embedding_size = kwargs.get("embedding_size", 300)
+    max_features = kwargs.get("max_features", 10000)
 
     def _get_coefs(word, *arr):
-        return word, np.asarray(arr, dtype='float32')
+        return word, np.asarray(arr, dtype="float32")
 
-    embeddings_index = dict(_get_coefs(*o.strip().rsplit(' ')) for o in open(embedding_path, encoding='utf-8', errors='ignore'))
+    embeddings_index = dict(_get_coefs(*o.strip().rsplit(" ")) for o in open(embedding_path, encoding="utf-8", errors="ignore"))
     word_index = tokenizer.word_index
     num_words = min(max_features, len(word_index))
     embeddings_matrix = np.zeros((num_words, embedding_size))
@@ -107,25 +107,25 @@ def clean_regex(x, pattern_mapping):
 def separate_punctuation(x, punctuations):
     """ Add space around pre-defined punctuations """
     for p in punctuations:
-        x = x.replace(p, f' {p} ')
+        x = x.replace(p, f" {p} ")
     return x
 
 
 def remove_words(x, words):
     """ Remove pre-defined words """
-    return ' '.join([w for w in x.split() if w not in words])
+    return " ".join([w for w in x.split() if w not in words])
 
 
 def strip_space(x):
     """ Strip extra spaces """
-    return ' '.join([s.strip() for s in x.split()])
+    return " ".join([s.strip() for s in x.split()])
 
 
-def stemming(x, method='snowball'):
+def stemming(x, method="snowball"):
     """ Apply stemming on text """
-    __builtin_stemmer = {'snowball': SnowballStemmer, 'porter': PorterStemmer}
-    stemmer = __builtin_stemmer[method]('english')
-    return ' '.join([stemmer.stem(w) for w in x.split()])
+    __builtin_stemmer = {"snowball": SnowballStemmer, "porter": PorterStemmer}
+    stemmer = __builtin_stemmer[method]("english")
+    return " ".join([stemmer.stem(w) for w in x.split()])
 
 
 class RegexCleaner(TransformerMixin):
@@ -139,7 +139,7 @@ class RegexCleaner(TransformerMixin):
             text = re.sub(old_pattern, new_pattern, text)
 
         if self.strip_space:
-            text = ' '.join([s.strip() for s in text.split()])
+            text = " ".join([s.strip() for s in text.split()])
 
         return text
 
@@ -160,10 +160,10 @@ class PunctuationSeparator(TransformerMixin):
 
     def _add_separator(self, text):
         for p in self.punctuations:
-            text = text.replace(p, f' {p} ')
+            text = text.replace(p, f" {p} ")
 
         if self.strip_space:
-            text = ' '.join([s.strip() for s in text.split()])
+            text = " ".join([s.strip() for s in text.split()])
 
         return text
 
@@ -179,10 +179,10 @@ class PunctuationSeparator(TransformerMixin):
 class StopwordsRemover(TransformerMixin):
     """ Remove stopwords """
     def __init__(self, stop_words=None):
-        self.stop_words = stopwords.words('english') if stop_words is None else stop_words
+        self.stop_words = stopwords.words("english") if stop_words is None else stop_words
 
     def _remove_words(self, text):
-        return ' '.join([w for w in text.split() if w not in self.stop_words])
+        return " ".join([w for w in text.split() if w not in self.stop_words])
 
     def fit(self, X, y=None):
         return self
@@ -195,13 +195,13 @@ class StopwordsRemover(TransformerMixin):
 
 class Stemmer(TransformerMixin):
     """ Apply stemming on text """
-    __builtin_stemmer = {'snowball': SnowballStemmer, 'porter': PorterStemmer}
+    __builtin_stemmer = {"snowball": SnowballStemmer, "porter": PorterStemmer}
 
-    def __init__(self, method='snowball'):
-        self.stemmer = self.__builtin_stemmer[method]('english')
+    def __init__(self, method="snowball"):
+        self.stemmer = self.__builtin_stemmer[method]("english")
 
     def _stemming(self, text):
-        return ' '.join([self.stemmer.stem(w) for w in text.split()])
+        return " ".join([self.stemmer.stem(w) for w in text.split()])
 
     def fit(self, X, y=None):
         return self

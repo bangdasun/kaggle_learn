@@ -56,10 +56,10 @@ class NBLRClassifier(BaseEstimator, ClassifierMixin):
 
     def predict(self, X):
         # verify that model has been fit
-        check_is_fitted(self, ['_log_count_ratio', '_clf'])
+        check_is_fitted(self, ["_log_count_ratio", "_clf"])
         return self._clf.predict(X.multiply(self._log_count_ratio))
 
     def predict_proba(self, X):
         # verify that model has been fit
-        check_is_fitted(self, ['_log_count_ratio', '_clf'])
+        check_is_fitted(self, ["_log_count_ratio", "_clf"])
         return self._clf.predict_proba(X.multiply(self._log_count_ratio))
